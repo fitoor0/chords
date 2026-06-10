@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChordVerse — Instant Standalone Chords Hub</title>
+    <title>PhysiCalc — Advanced Dimensional Analysis & Physics Calculator</title>
     <style>
         :root {
             --bg-dark: #070a13;
@@ -12,7 +12,7 @@
             --accent-purple: #9d4edd;
             --text-main: #f8fafc;
             --text-muted: #64748b;
-            --chord-pink: #ff007f;
+            --neon-green: #39ff14;
         }
 
         body {
@@ -28,7 +28,7 @@
         }
 
         .container {
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -39,7 +39,7 @@
         }
 
         header h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 800;
             margin: 0 0 10px 0;
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
@@ -50,74 +50,113 @@
 
         header p { color: var(--text-muted); font-size: 1.1rem; margin: 0; }
 
-        .search-box {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 8px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        .nav-tabs {
             display: flex;
-            gap: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            gap: 15px;
             margin-bottom: 30px;
         }
 
-        .search-box input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 14px 18px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .search-box input::placeholder { color: #475569; }
-
-        .search-box button {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-            color: #070a13;
-            border: none;
-            padding: 0 28px;
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 12px 24px;
             border-radius: 12px;
-            font-weight: 800;
-            font-size: 15px;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
             transition: all 0.2s ease;
         }
 
-        .search-box button:hover { opacity: 0.9; transform: translateY(-1px); }
+        .tab-btn.active, .tab-btn:hover {
+            color: #070a13;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
 
-        .sheet-viewer {
-            background: #030712;
-            border: 1px solid rgba(157, 78, 221, 0.2);
-            border-radius: 18px;
+        .calc-panel {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
             padding: 35px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: none;
         }
 
-        .song-title { font-size: 2.2rem; color: var(--accent-cyan); margin: 0 0 5px 0; }
-        .song-artist { color: var(--accent-purple); font-size: 1.2rem; margin: 0 0 25px 0; font-weight: 500; }
+        .calc-panel.active { display: block; }
 
-        .sheet-lyrics-block {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 17px;
-            line-height: 2.4;
-            color: #cbd5e1;
-            background: #010409;
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #1e293b;
-            overflow-x: auto;
-            white-space: pre-wrap;
+        h2 { color: var(--accent-cyan); font-size: 1.8rem; margin-top: 0; margin-bottom: 20px; }
+
+        .input-group {
+            margin-bottom: 20px;
         }
 
-        .chord-inline {
-            color: var(--chord-pink);
+        label {
+            display: block;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            box-sizing: border-box;
+            background: #010409;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 14px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus { border-color: var(--accent-cyan); }
+
+        .calc-btn {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            color: #070a13;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+
+        .calc-btn:hover { opacity: 0.9; }
+
+        .output-box {
+            background: #010409;
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            display: none;
+        }
+
+        .output-box h3 { color: var(--accent-purple); margin-top: 0; margin-bottom: 15px; }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+        .result-row:last-child { border-bottom: none; }
+
+        .matrix-font {
+            font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+            color: var(--neon-green);
+            font-size: 18px;
         }
 
         .adsense-placeholder {
@@ -133,176 +172,164 @@
         }
 
         .margin-spacer { margin: 30px 0; }
+        footer { text-align: center; margin-top: 60px; color: #475569; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>🎸 ChordVerse</h1>
-            <p>Instant Offline-First Chords & Lyrics Search</p>
+            <h1>⚡ PhysiCalc</h1>
+            <p>Instant Unit Analysis & Dimensional Formula Engine</p>
         </header>
 
-        <!-- AD ZONE 1 -->
-        <div class="adsense-placeholder margin-spacer">Google AdSense Placement (Top Header Billboard)</div>
+        <!-- GOOGLE ADSENSE PLACEMENT (TOP HEADER BILLBOARD) -->
+        <div class="adsense-placeholder margin-spacer">Advertisement Space (Google AdSense Top Header Billboard)</div>
 
-        <div class="search-box">
-            <input type="text" id="searchBarInput" placeholder="Search Perfect, Aaoge Tum Kabhi, Gurasai Fulyo, or any song...">
-            <button onclick="searchLocalDatabase()">Find Chords</button>
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchCalculatorTab('hydrostaticTab')">Hydrostatic Pressure</button>
+            <button class="tab-btn" onclick="switchCalculatorTab('potentialTab')">Potential Difference</button>
+            <button class="tab-btn" onclick="switchCalculatorTab('powerTab')">Power Analysis</button>
         </div>
 
-        <!-- Sheet Viewer Container -->
-        <div id="masterSheetCanvas" class="sheet-viewer">
-            <h2 id="displayTitle" class="song-title">Track Name</h2>
-            <h3 id="displayArtist" class="song-artist">Artist Name</h3>
-            
-            <!-- AD ZONE 2 -->
-            <div class="adsense-placeholder" style="margin: 20px 0;">Google AdSense Integration (Mid-Article Native Ads)</div>
-            
-            <pre id="lyricsOutputTarget" class="sheet-lyrics-block"></pre>
+        <!-- PANEL 1: HYDROSTATIC PRESSURE -->
+        <div id="hydrostaticTab" class="calc-panel active">
+            <h2>Hydrostatic Pressure Solver ($P = hdg$)</h2>
+            <div class="input-group">
+                <label>Height / Depth ($h$ in meters):</label>
+                <input type="number" id="hydroHeight" value="10" step="any">
+            </div>
+            <div class="input-group">
+                <label>Fluid Density ($d$ in $kg/m^3$):</label>
+                <input type="number" id="hydroDensity" value="1000" step="any">
+            </div>
+            <div class="input-group">
+                <label>Acceleration due to Gravity ($g$ in $m/s^2$):</label>
+                <input type="number" id="hydroGravity" value="9.8" step="any">
+            </div>
+            <button class="calc-btn" onclick="computeHydrostatics()">Analyze & Calculate</button>
+
+            <div id="hydroOutput" class="output-box">
+                <h3>Analysis Results</h3>
+                <div class="result-row"><span>Calculated Pressure ($P$):</span><span id="resHydroVal" class="matrix-font">0</span></div>
+                <div class="result-row"><span>Standard SI Unit:</span><span class="matrix-font">Pascal (Pa) or N/m²</span></div>
+                <div class="result-row"><span>Base SI Derived Units:</span><span class="matrix-font">kg · m⁻¹ · s⁻²</span></div>
+                <div class="result-row"><span>Dimensional Formula:</span><span class="matrix-font">[M¹ L⁻¹ T⁻²]</span></div>
+            </div>
         </div>
 
-        <!-- AD ZONE 3 -->
-        <div class="adsense-placeholder margin-spacer">Google AdSense Placement (Downside Bottom Sticky Banner Slot)</div>
+        <!-- PANEL 2: POTENTIAL DIFFERENCE -->
+        <div id="potentialTab" class="calc-panel">
+            <h2>Potential Difference Solver ($V = W / Q$)</h2>
+            <div class="input-group">
+                <label>Work Done ($W$ in Joules):</label>
+                <input type="number" id="voltWork" value="50" step="any">
+            </div>
+            <div class="input-group">
+                <label>Electric Charge ($Q$ in Coulombs):</label>
+                <input type="number" id="voltCharge" value="5" step="any">
+            </div>
+            <button class="calc-btn" onclick="computePotential()">Analyze & Calculate</button>
+
+            <!-- GOOGLE ADSENSE PLACEMENT (MID-ARTICLE NATIVE AD) -->
+            <div class="adsense-placeholder" style="margin: 20px 0;">Advertisement Space (Google AdSense Mid-Article Native Ads)</div>
+
+            <div id="potentialOutput" class="output-box">
+                <h3>Analysis Results</h3>
+                <div class="result-row"><span>Potential Difference ($V$):</span><span id="resVoltVal" class="matrix-font">0</span></div>
+                <div class="result-row"><span>Standard SI Unit:</span><span class="matrix-font">Volt (V)</span></div>
+                <div class="result-row"><span>Base SI Derived Units:</span><span class="matrix-font">kg · m² · s⁻³ · A⁻¹</span></div>
+                <div class="result-row"><span>Dimensional Formula:</span><span class="matrix-font">[M¹ L² T⁻³ A⁻¹]</span></div>
+            </div>
+        </div>
+
+        <!-- PANEL 3: POWER ANALYSIS -->
+        <div id="powerTab" class="calc-panel">
+            <h2>Power Solver ($Power = Work / Time$)</h2>
+            <div class="input-group">
+                <label>Total Work Done ($W$ in Joules):</label>
+                <input type="number" id="powerWork" value="100" step="any">
+            </div>
+            <div class="input-group">
+                <label>Time Elapsed ($t$ in Seconds):</label>
+                <input type="number" id="powerTime" value="4" step="any">
+            </div>
+            <button class="calc-btn" onclick="computePower()">Analyze & Calculate</button>
+
+            <div id="powerOutput" class="output-box">
+                <h3>Analysis Results</h3>
+                <div class="result-row"><span>Calculated Power ($P$):</span><span id="resPowerVal" class="matrix-font">0</span></div>
+                <div class="result-row"><span>Standard SI Unit:</span><span class="matrix-font">Watt (W) or J/s</span></div>
+                <div class="result-row"><span>Base SI Derived Units:</span><span class="matrix-font">kg · m² · s⁻³</span></div>
+                <div class="result-row"><span>Dimensional Formula:</span><span class="matrix-font">[M¹ L² T⁻³]</span></div>
+            </div>
+        </div>
+
+        <!-- GOOGLE ADSENSE PLACEMENT (DOWNSIDE BOTTOM STICKER BANNER SLOT) -->
+        <div class="adsense-placeholder margin-spacer">Advertisement Space (Google AdSense Downside Bottom Sticky Banner Slot)</div>
 
         <footer>
-            <p>&copy; 2026 ChordVerse. Built Standalone. | <a href="privacy-policy.html">Privacy Policy</a></p>
+            <p>&copy; 2026 PhysiCalc Engine. Standalone System Core.</p>
         </footer>
     </div>
 
     <script>
-        document.getElementById('searchBarInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') searchLocalDatabase();
-        });
+        // Smooth Tab Switching Engine
+        function switchCalculatorTab(activeTabId) {
+            document.querySelectorAll('.calc-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
 
-        // Deep Pre-Indexed Global Music Catalog (Zero Network Dependencies)
-        const musicDatabase = [
-            {
-                keys: ["perfect", "ed sheeran", "perfect chords"],
-                title: "Perfect",
-                artist: "Ed Sheeran",
-                body: `
-[Intro]
-<span class="chord-inline">G</span>  <span class="chord-inline">Em</span>  <span class="chord-inline">C</span>  <span class="chord-inline">D</span>
+            document.getElementById(activeTabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-[Verse 1]
-<span class="chord-inline">G</span>                               <span class="chord-inline">Em</span>
-I found a love for me, darling just dive right in
-                 <span class="chord-inline">C</span>                                    <span class="chord-inline">D</span>
-And follow my lead. I found a girl, beautiful and sweet 
-                     <span class="chord-inline">G</span>                                       <span class="chord-inline">Em</span>
-I never knew you were the person waiting for me.
+        // Hydrostatic Computation Logic
+        function computeHydrostatics() {
+            const h = parseFloat(document.getElementById('hydroHeight').value) || 0;
+            const d = parseFloat(document.getElementById('hydroDensity').value) || 0;
+            const g = parseFloat(document.getElementById('hydroGravity').value) || 0;
+            
+            const totalPressure = h * d * g;
+            
+            document.getElementById('resHydroVal').innerText = totalPressure.toLocaleString() + " Pa";
+            document.getElementById('hydroOutput').style.display = 'block';
+        }
 
-[Chorus]
-              <span class="chord-inline">Em</span>    <span class="chord-inline">C</span>              <span class="chord-inline">G</span>              <span class="chord-inline">D</span>
-Baby, I'm dancing in the dark, with you between my arms
-              <span class="chord-inline">Em</span>          <span class="chord-inline">C</span>               <span class="chord-inline">G</span>                <span class="chord-inline">D</span>
-Barefoot on the grass, listening to our favorite song.`
-            },
-            {
-                keys: ["aaoge tum kabhi", "the local train", "aaoge"],
-                title: "Aaoge Tum Kabhi",
-                artist: "The Local Train",
-                body: `
-[Intro]
-<span class="chord-inline">G</span>  <span class="chord-inline">Bm</span>  <span class="chord-inline">C</span>  <span class="chord-inline">D</span>
-
-[Verse 1]
-<span class="chord-inline">G</span>             <span class="chord-inline">Bm</span>            <span class="chord-inline">C</span>              <span class="chord-inline">D</span>
-Aaoge tum kabhi meri jaan, rasta nihaarun main subaho shaam
-<span class="chord-inline">G</span>             <span class="chord-inline">Bm</span>            <span class="chord-inline">C</span>              <span class="chord-inline">D</span>
-Tum bas thame rehna haat mera, chhootega na ab kabhi saath tera
-
-[Chorus]
-<span class="chord-inline">C</span>                 <span class="chord-inline">D</span>             <span class="chord-inline">G</span>              <span class="chord-inline">Em</span>
-Kahin bhi jaun main har jagah, hai bas tera hi nishaan
-<span class="chord-inline">C</span>                 <span class="chord-inline">D</span>             <span class="chord-inline">G</span>
-Aaoge tum kabhi meri jaan`
-            },
-            {
-                keys: ["gurasai fulyo", "gurasai", "tulasi prasad"],
-                title: "Gurasai Fulyo Banai Ma",
-                artist: "Tulasi Prasad Parajuli",
-                body: `
-[Intro]
-<span class="chord-inline">G</span>             <span class="chord-inline">C</span>          <span class="chord-inline">G</span>
-
-[Chorus]
-<span class="chord-inline">G</span>             <span class="chord-inline">C</span>          <span class="chord-inline">G</span>
-Gurasai fulyo banai ma mero man jhulyo timro manai ma
-<span class="chord-inline">G</span>             <span class="chord-inline">D</span>          <span class="chord-inline">G</span>
-Gurasai fulyo banai ma mero man jhulyo timro manai ma
-
-[Verse 1]
-<span class="chord-inline">G</span>                        <span class="chord-inline">C</span>          <span class="chord-inline">G</span>
-Tyo danda ko bhedi gotha tyo danda ko bhedi gotha
-<span class="chord-inline">G</span>                        <span class="chord-inline">D</span>          <span class="chord-inline">G</span>
-Kati basna jaun sani maya ko chha thasala`
-            },
-            {
-                keys: ["ishq sufiyana", "sufiyana", "kamal khan"],
-                title: "Ishq Sufiyana",
-                artist: "Kamal Khan",
-                body: `
-[Intro]
-<span class="chord-inline">Em</span>    <span class="chord-inline">D</span>    <span class="chord-inline">C</span>    <span class="chord-inline">D</span>
-
-[Verse 1]
-<span class="chord-inline">Em</span>                    <span class="chord-inline">D</span>
-Rab ki qawaali hai ishq koi
-<span class="chord-inline">C</span>                     <span class="chord-inline">D</span>
-Dil ki kihaani hai ishq koi
-
-[Chorus]
-<span class="chord-inline">Em</span>                 <span class="chord-inline">G</span>
-Mera ishq sufiyana, sufiyana
-<span class="chord-inline">C</span>                 <span class="chord-inline">D</span>
-Mera ishq sufiyana, sufiyana`
-            }
-        ];
-
-        function searchLocalDatabase() {
-            const query = document.getElementById('searchBarInput').value.trim().toLowerCase();
-            const targetCanvas = document.getElementById('masterSheetCanvas');
-            const lyricsContainer = document.getElementById('lyricsOutputTarget');
-            const titleHeader = document.getElementById('displayTitle');
-            const artistHeader = document.getElementById('displayArtist');
-
-            if (!query) {
-                alert("Please enter a song name!");
+        // Electric Potential Computation Logic
+        function computePotential() {
+            const w = parseFloat(document.getElementById('voltWork').value) || 0;
+            const q = parseFloat(document.getElementById('voltCharge').value) || 0;
+            
+            if (q === 0) {
+                alert("Charge (Q) cannot be zero!");
                 return;
             }
+            
+            const voltage = w / q;
+            
+            document.getElementById('resVoltVal').innerText = voltage.toLocaleString() + " V";
+            document.getElementById('potentialOutput').style.display = 'block';
+        }
 
-            // Look up match using key vectors
-            let match = musicDatabase.find(song => song.keys.some(key => query.includes(key) || key.includes(query)));
-
-            if (match) {
-                titleHeader.innerText = `🎸 ${match.title}`;
-                artistHeader.innerText = `by ${match.artist}`;
-                lyricsContainer.innerHTML = match.body;
-            } else {
-                // Procedural generation engine to handle anything else instantly without network errors
-                const formattedTitle = query.toUpperCase();
-                titleHeader.innerText = `🎸 ${formattedTitle}`;
-                artistHeader.innerText = "Verified Standard Chord Chart";
-                lyricsContainer.innerHTML = `
-[Intro]
-<span class="chord-inline">G</span>      <span class="chord-inline">Em</span>      <span class="chord-inline">C</span>      <span class="chord-inline">D</span>
-
-[Verse 1]
-<span class="chord-inline">G</span>                               <span class="chord-inline">Em</span>
-Now rendering standalone verified progression blocks for ${formattedTitle}.
-                 <span class="chord-inline">C</span>                                    <span class="chord-inline">D</span>
-Playing seamlessly with acoustic neon style tags mounted cleanly above the lines.
-                     <span class="chord-inline">G</span>                                       <span class="chord-inline">Em</span>
-This layout ensures absolute uptime across every region without any proxy errors.
-
-[Chorus]
-              <span class="chord-inline">Em</span>    <span class="chord-inline">C</span>              <span class="chord-inline">G</span>              <span class="chord-inline">D</span>
-Strumming along smoothly with the music chords right on time.`;
+        // Mechanical/Electrical Power Computation Logic
+        function computePower() {
+            const w = parseFloat(document.getElementById('powerWork').value) || 0;
+            const t = parseFloat(document.getElementById('powerTime').value) || 0;
+            
+            if (t === 0) {
+                alert("Time elapsed cannot be zero!");
+                return;
             }
-
-            targetCanvas.style.display = 'block';
+            
+            const power = w / t;
+            
+            document.getElementById('resPowerVal').innerText = power.toLocaleString() + " W";
+            document.getElementById('powerOutput').style.display = 'block';
         }
     </script>
 </body>
