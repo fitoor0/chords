@@ -96,16 +96,9 @@
 
         h2 { color: var(--accent-cyan); font-size: 1.8rem; margin-top: 0; margin-bottom: 20px; }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
+        .input-group { margin-bottom: 20px; }
 
-        label {
-            display: block;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
+        label { display: block; color: #cbd5e1; margin-bottom: 8px; font-weight: 500; }
 
         input {
             width: 100%;
@@ -166,14 +159,61 @@
             font-size: 18px;
         }
 
-        .ad-container-wrapper {
-            width: 100%;
-            overflow: hidden;
-            text-align: center;
+        /* --- BLOG / STUDY GUIDE STYLES --- */
+        .blog-section {
+            margin-top: 60px;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 35px;
         }
 
+        .blog-section h2 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .blog-post {
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        .blog-post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .blog-post h3 {
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .blog-post p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .blog-formula {
+            background: #010409;
+            padding: 12px;
+            border-left: 3px solid var(--accent-purple);
+            font-family: 'Courier New', monospace;
+            color: var(--neon-green);
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .ad-container-wrapper { width: 100%; overflow: hidden; text-align: center; }
         .margin-spacer { margin: 30px 0; }
-        
         footer { text-align: center; margin-top: 60px; color: #475569; font-size: 14px; }
         footer a { color: var(--accent-cyan); text-decoration: none; margin: 0 10px; font-weight: 500; }
         footer a:hover { text-decoration: underline; }
@@ -190,13 +230,11 @@
         <div class="ad-container-wrapper margin-spacer">
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                 data-ad-slot="1111111111"
+                 data-ad-client="ca-pub-6817952815093761"
+                 data-ad-slot="4974692326"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <div class="nav-tabs">
@@ -249,9 +287,7 @@
                      data-ad-format="fluid"
                      data-ad-client="ca-pub-6817952815093761"
                      data-ad-slot="4974692326"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
 
             <div id="potentialOutput" class="output-box">
@@ -284,16 +320,62 @@
             </div>
         </div>
 
+        <section class="blog-section">
+            <h2>📚 Physics Study Guides & Deep Dives</h2>
+
+            <article class="blog-post">
+                <h3>1. Understanding Dimensional Analysis and Why It Matters</h3>
+                <p>Dimensional analysis is a fundamental mathematical tool used by physicists and engineers to sanity-check equations and verify units. By breaking down physical variables into foundational dimensions—Mass [M], Length [L], Time [T], and Electric Current [A]—you can ensure algebraic consistency before running complex experiments.</p>
+                <p>If the dimensions on the left side of your equation do not strictly match the right side, the equation is physically impossible. This structural constraint serves as a bulletproof logic filter during advanced computations.</p>
+            </article>
+
+            <article class="blog-post">
+                <h3>2. How to Derive the Dimensional Formula of Hydrostatic Pressure</h3>
+                <p>Hydrostatic pressure is defined as the force exerted by a fluid at rest due to gravity. The standard formula is written as P = hdg. Let's break this down into base dimensions step-by-step:</p>
+                <div class="blog-formula">
+                    Height (h) = [L]<br>
+                    Fluid Density (d) = Mass / Volume = [M L⁻³]<br>
+                    Gravity Acceleration (g) = Velocity / Time = [L T⁻²]
+                </div>
+                <p>Multiplying these terms together: [L] × [M L⁻³] × [L T⁻²] resolves cleanly into the final dimensional layout for pressure: <strong>[M¹ L⁻¹ T⁻²]</strong>. This perfectly matches the primary SI derived pressure unit, the Pascal (Pa).</p>
+            </article>
+
+            <article class="blog-post">
+                <h3>3. Demystifying Potential Difference: Volts, Work, and Charge</h3>
+                <p>Potential difference (or Voltage) represents the amount of work required to transport a unit of electric charge between two distinct points inside an electrical circuit field. Expressed algebraically as V = W / Q, its units can be traced straight back to base SI components.</p>
+                <div class="blog-formula">
+                    Work Done (W) = Force × Distance = [M¹ L² T⁻²]<br>
+                    Electric Charge (Q) = Current × Time = [A¹ T¹]
+                </div>
+                <p>By dividing Work by Charge, the dimensions shift to the final structure: <strong>[M¹ L² T⁻³ A⁻¹]</strong>. Understanding this specific breakdown makes advanced electrodynamics coursework vastly easier to master.</p>
+            </article>
+
+            <article class="blog-post">
+                <h3>4. The Direct Relationship Between Work, Time, and Power Units</h3>
+                <p>Power is a measure of the velocity at which mechanical or electrical energy is spent over a duration of time. The formula Power = Work / Time yields the standard unit of the Watt (W). Knowing the dimensional formula helps connect mechanical concepts with thermodynamic systems smoothly.</p>
+                <div class="blog-formula">
+                    Work Done (W) = [M¹ L² T⁻²]<br>
+                    Time (t) = [T¹]<br>
+                    Power (P) = [M¹ L² T⁻²] / [T¹] = [M¹ L² T⁻³]
+                </div>
+                <p>This reveals that one single Watt is equivalent to one kilogram square meter per cubic second (kg · m² · s⁻³).</p>
+            </article>
+
+            <article class="blog-post">
+                <h3>5. Practical Strategies for Solving Complex Unit Discrepancies</h3>
+                <p>When solving intricate physics problems, a common point of failure is calculating values using mismatched units. Always transform metric prefixes like centimeters or micro-Coulombs into standard base SI structures (meters and Coulombs) before passing numerical factors into a formula engine.</p>
+                <p>Utilizing our integrated calculation matrix tools above protects your work against trivial unit errors, giving you instant confidence during engineering and physics homework reviews.</p>
+            </article>
+        </section>
+
         <div class="ad-container-wrapper margin-spacer">
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                 data-ad-slot="3333333333"
+                 data-ad-client="ca-pub-6817952815093761"
+                 data-ad-slot="4974692326"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <footer>
@@ -306,59 +388,36 @@
     </div>
 
     <script>
-        // Smooth Tab Switching Logic
         function switchCalculatorTab(event, activeTabId) {
-            document.querySelectorAll('.calc-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
+            document.querySelectorAll('.calc-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(activeTabId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
 
-        // 1. Hydrostatic Pressure Solver Logic
         function computeHydrostatics() {
             const h = parseFloat(document.getElementById('hydroHeight').value) || 0;
             const d = parseFloat(document.getElementById('hydroDensity').value) || 0;
             const g = parseFloat(document.getElementById('hydroGravity').value) || 0;
-            
             const totalPressure = h * d * g;
-            
             document.getElementById('resHydroVal').innerText = totalPressure.toFixed(4).replace(/\.?0+$/, "") + " Pa";
             document.getElementById('hydroOutput').style.display = 'block';
         }
 
-        // 2. Potential Difference Solver Logic
         function computePotential() {
             const w = parseFloat(document.getElementById('voltWork').value) || 0;
             const q = parseFloat(document.getElementById('voltCharge').value) || 0;
-            
-            if (q === 0) {
-                alert("Electric Charge (Q) cannot be zero!");
-                return;
-            }
-            
+            if (q === 0) { alert("Electric Charge (Q) cannot be zero!"); return; }
             const voltage = w / q;
-            
             document.getElementById('resVoltVal').innerText = voltage.toFixed(4).replace(/\.?0+$/, "") + " V";
             document.getElementById('potentialOutput').style.display = 'block';
         }
 
-        // 3. Power Solver Logic
         function computePower() {
             const w = parseFloat(document.getElementById('powerWork').value) || 0;
             const t = parseFloat(document.getElementById('powerTime').value) || 0;
-            
-            if (t === 0) {
-                alert("Time elapsed cannot be zero!");
-                return;
-            }
-            
+            if (t === 0) { alert("Time elapsed cannot be zero!"); return; }
             const power = w / t;
-            
             document.getElementById('resPowerVal').innerText = power.toFixed(4).replace(/\.?0+$/, "") + " W";
             document.getElementById('powerOutput').style.display = 'block';
         }
