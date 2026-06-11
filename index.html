@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6817952815093761"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhysiCalc — Advanced Dimensional Analysis & Physics Calculator</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6817952815093761"
+     crossorigin="anonymous"></script>
+
     <style>
         :root {
             --bg-dark: #070a13;
@@ -57,6 +59,7 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -104,7 +107,7 @@
             font-weight: 500;
         }
 
-        input, select {
+        input {
             width: 100%;
             box-sizing: border-box;
             background: #010409;
@@ -117,7 +120,7 @@
             transition: border-color 0.2s;
         }
 
-        input:focus, select:focus { border-color: var(--accent-cyan); }
+        input:focus { border-color: var(--accent-cyan); }
 
         .calc-btn {
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
@@ -151,6 +154,8 @@
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #1e293b;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .result-row:last-child { border-bottom: none; }
 
@@ -161,20 +166,17 @@
             font-size: 18px;
         }
 
-        .adsense-placeholder {
-            background: rgba(30, 41, 59, 0.25);
-            border: 1px dashed rgba(0, 242, 254, 0.12);
-            border-radius: 12px;
-            padding: 20px;
+        .ad-container-wrapper {
+            width: 100%;
+            overflow: hidden;
             text-align: center;
-            color: #475569;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         .margin-spacer { margin: 30px 0; }
+        
         footer { text-align: center; margin-top: 60px; color: #475569; font-size: 14px; }
+        footer a { color: var(--accent-cyan); text-decoration: none; margin: 0 10px; font-weight: 500; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -185,109 +187,127 @@
             <p>Instant Unit Analysis & Dimensional Formula Engine</p>
         </header>
 
-        <!-- GOOGLE ADSENSE PLACEMENT (TOP HEADER BILLBOARD) -->
-        <div class="adsense-placeholder margin-spacer">Advertisement Space (Google AdSense Top Header Billboard)</div>
-
-        <!-- Navigation Tabs -->
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchCalculatorTab('hydrostaticTab')">Hydrostatic Pressure</button>
-            <button class="tab-btn" onclick="switchCalculatorTab('potentialTab')">Potential Difference</button>
-            <button class="tab-btn" onclick="switchCalculatorTab('powerTab')">Power Analysis</button>
+        <div class="ad-container-wrapper margin-spacer">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="1111111111"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
-        <!-- PANEL 1: HYDROSTATIC PRESSURE -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchCalculatorTab(event, 'hydrostaticTab')">1. Hydrostatic Pressure</button>
+            <button class="tab-btn" onclick="switchCalculatorTab(event, 'potentialTab')">2. Potential Difference</button>
+            <button class="tab-btn" onclick="switchCalculatorTab(event, 'powerTab')">3. Power Analysis</button>
+        </div>
+
         <div id="hydrostaticTab" class="calc-panel active">
-            <h2>Hydrostatic Pressure Solver ($P = hdg$)</h2>
+            <h2>Hydrostatic Pressure Solver (P = hdg)</h2>
             <div class="input-group">
-                <label>Height / Depth ($h$ in meters):</label>
+                <label>Height / Depth (h in meters):</label>
                 <input type="number" id="hydroHeight" value="10" step="any">
             </div>
             <div class="input-group">
-                <label>Fluid Density ($d$ in $kg/m^3$):</label>
+                <label>Fluid Density (d in kg/m³):</label>
                 <input type="number" id="hydroDensity" value="1000" step="any">
             </div>
             <div class="input-group">
-                <label>Acceleration due to Gravity ($g$ in $m/s^2$):</label>
+                <label>Acceleration due to Gravity (g in m/s²):</label>
                 <input type="number" id="hydroGravity" value="9.8" step="any">
             </div>
             <button class="calc-btn" onclick="computeHydrostatics()">Analyze & Calculate</button>
 
             <div id="hydroOutput" class="output-box">
                 <h3>Analysis Results</h3>
-                <div class="result-row"><span>Calculated Pressure ($P$):</span><span id="resHydroVal" class="matrix-font">0</span></div>
+                <div class="result-row"><span>Calculated Pressure (P):</span><span id="resHydroVal" class="matrix-font">0</span></div>
                 <div class="result-row"><span>Standard SI Unit:</span><span class="matrix-font">Pascal (Pa) or N/m²</span></div>
                 <div class="result-row"><span>Base SI Derived Units:</span><span class="matrix-font">kg · m⁻¹ · s⁻²</span></div>
                 <div class="result-row"><span>Dimensional Formula:</span><span class="matrix-font">[M¹ L⁻¹ T⁻²]</span></div>
             </div>
         </div>
 
-        <!-- PANEL 2: POTENTIAL DIFFERENCE -->
         <div id="potentialTab" class="calc-panel">
-            <h2>Potential Difference Solver ($V = W / Q$)</h2>
+            <h2>Potential Difference Solver (V = W / Q)</h2>
             <div class="input-group">
-                <label>Work Done ($W$ in Joules):</label>
+                <label>Work Done (W in Joules):</label>
                 <input type="number" id="voltWork" value="50" step="any">
             </div>
             <div class="input-group">
-                <label>Electric Charge ($Q$ in Coulombs):</label>
+                <label>Electric Charge (Q in Coulombs):</label>
                 <input type="number" id="voltCharge" value="5" step="any">
             </div>
             <button class="calc-btn" onclick="computePotential()">Analyze & Calculate</button>
 
-            <!-- GOOGLE ADSENSE PLACEMENT (MID-ARTICLE NATIVE AD) -->
-            <div class="adsense-placeholder" style="margin: 20px 0;">Advertisement Space (Google AdSense Mid-Article Native Ads)</div>
+            <div class="ad-container-wrapper" style="margin: 20px 0;">
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-ad-client="ca-pub-6817952815093761"
+                     data-ad-slot="4974692326"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
 
             <div id="potentialOutput" class="output-box">
                 <h3>Analysis Results</h3>
-                <div class="result-row"><span>Potential Difference ($V$):</span><span id="resVoltVal" class="matrix-font">0</span></div>
+                <div class="result-row"><span>Potential Difference (V):</span><span id="resVoltVal" class="matrix-font">0</span></div>
                 <div class="result-row"><span>Standard SI Unit:</span><span class="matrix-font">Volt (V)</span></div>
                 <div class="result-row"><span>Base SI Derived Units:</span><span class="matrix-font">kg · m² · s⁻³ · A⁻¹</span></div>
                 <div class="result-row"><span>Dimensional Formula:</span><span class="matrix-font">[M¹ L² T⁻³ A⁻¹]</span></div>
             </div>
         </div>
 
-        <!-- PANEL 3: POWER ANALYSIS -->
         <div id="powerTab" class="calc-panel">
-            <h2>Power Solver ($Power = Work / Time$)</h2>
+            <h2>Power Solver (Power = Work / Time)</h2>
             <div class="input-group">
-                <label>Total Work Done ($W$ in Joules):</label>
+                <label>Total Work Done (W in Joules):</label>
                 <input type="number" id="powerWork" value="100" step="any">
             </div>
             <div class="input-group">
-                <label>Time Elapsed ($t$ in Seconds):</label>
+                <label>Time Elapsed (t in Seconds):</label>
                 <input type="number" id="powerTime" value="4" step="any">
             </div>
             <button class="calc-btn" onclick="computePower()">Analyze & Calculate</button>
 
             <div id="powerOutput" class="output-box">
                 <h3>Analysis Results</h3>
-                <div class="result-row"><span>Calculated Power ($P$):</span><span id="resPowerVal" class="matrix-font">0</span></div>
+                <div class="result-row"><span>Calculated Power (P):</span><span id="resPowerVal" class="matrix-font">0</span></div>
                 <div class="result-row"><span>Standard SI Unit:</span><span class="matrix-font">Watt (W) or J/s</span></div>
                 <div class="result-row"><span>Base SI Derived Units:</span><span class="matrix-font">kg · m² · s⁻³</span></div>
                 <div class="result-row"><span>Dimensional Formula:</span><span class="matrix-font">[M¹ L² T⁻³]</span></div>
             </div>
         </div>
 
-        <div class="margin-spacer" style="text-align: center;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6817952815093761"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
+        <div class="ad-container-wrapper margin-spacer">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="3333333333"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
         <footer>
+            <p>
+                <a href="privacy.html">Privacy Policy</a> | 
+                <a href="terms.html">Terms & Conditions</a>
+            </p>
             <p>&copy; 2026 PhysiCalc Engine. Standalone System Core.</p>
         </footer>
     </div>
 
     <script>
-        // Smooth Tab Switching Engine
-        function switchCalculatorTab(activeTabId) {
+        // Smooth Tab Switching Logic
+        function switchCalculatorTab(event, activeTabId) {
             document.querySelectorAll('.calc-panel').forEach(panel => {
                 panel.classList.remove('active');
             });
@@ -299,7 +319,7 @@
             event.currentTarget.classList.add('active');
         }
 
-        // Hydrostatic Computation Logic
+        // 1. Hydrostatic Pressure Solver Logic
         function computeHydrostatics() {
             const h = parseFloat(document.getElementById('hydroHeight').value) || 0;
             const d = parseFloat(document.getElementById('hydroDensity').value) || 0;
@@ -307,27 +327,27 @@
             
             const totalPressure = h * d * g;
             
-            document.getElementById('resHydroVal').innerText = totalPressure.toLocaleString() + " Pa";
+            document.getElementById('resHydroVal').innerText = totalPressure.toFixed(4).replace(/\.?0+$/, "") + " Pa";
             document.getElementById('hydroOutput').style.display = 'block';
         }
 
-        // Electric Potential Computation Logic
+        // 2. Potential Difference Solver Logic
         function computePotential() {
             const w = parseFloat(document.getElementById('voltWork').value) || 0;
             const q = parseFloat(document.getElementById('voltCharge').value) || 0;
             
             if (q === 0) {
-                alert("Charge (Q) cannot be zero!");
+                alert("Electric Charge (Q) cannot be zero!");
                 return;
             }
             
             const voltage = w / q;
             
-            document.getElementById('resVoltVal').innerText = voltage.toLocaleString() + " V";
+            document.getElementById('resVoltVal').innerText = voltage.toFixed(4).replace(/\.?0+$/, "") + " V";
             document.getElementById('potentialOutput').style.display = 'block';
         }
 
-        // Mechanical/Electrical Power Computation Logic
+        // 3. Power Solver Logic
         function computePower() {
             const w = parseFloat(document.getElementById('powerWork').value) || 0;
             const t = parseFloat(document.getElementById('powerTime').value) || 0;
@@ -339,7 +359,7 @@
             
             const power = w / t;
             
-            document.getElementById('resPowerVal').innerText = power.toLocaleString() + " W";
+            document.getElementById('resPowerVal').innerText = power.toFixed(4).replace(/\.?0+$/, "") + " W";
             document.getElementById('powerOutput').style.display = 'block';
         }
     </script>
